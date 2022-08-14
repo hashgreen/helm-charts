@@ -38,7 +38,7 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 80
+  port: 8555
 
 ingress:
   enabled: false
@@ -80,3 +80,76 @@ nodeSelector: {}
 tolerations: []
 
 affinity: {}
+
+updateStrategy:
+  ## StrategyType
+  ## Can be set to RollingUpdate or OnDelete
+  ##
+  type: RollingUpdate
+
+## Configure extra options for liveness probe
+## ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-liveness-readiness-probes/#configure-probes
+## @param livenessProbe.enabled Enable livenessProbe
+## @param livenessProbe.initialDelaySeconds Initial delay seconds for livenessProbe
+## @param livenessProbe.periodSeconds Period seconds for livenessProbe
+## @param livenessProbe.timeoutSeconds Timeout seconds for livenessProbe
+## @param livenessProbe.failureThreshold Failure threshold for livenessProbe
+## @param livenessProbe.successThreshold Success threshold for livenessProbe
+##
+livenessProbe:
+  enabled: true
+  initialDelaySeconds: 120
+  periodSeconds: 10
+  timeoutSeconds: 1
+  failureThreshold: 3
+  successThreshold: 1
+## @param readinessProbe.enabled Enable readinessProbe
+## @param readinessProbe.initialDelaySeconds Initial delay seconds for readinessProbe
+## @param readinessProbe.periodSeconds Period seconds for readinessProbe
+## @param readinessProbe.timeoutSeconds Timeout seconds for readinessProbe
+## @param readinessProbe.failureThreshold Failure threshold for readinessProbe
+## @param readinessProbe.successThreshold Success threshold for readinessProbe
+##
+readinessProbe:
+  enabled: true
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 1
+  failureThreshold: 3
+  successThreshold: 1
+
+persistence:
+  enabled: true
+  existingClaim: ""
+  subPath: ""
+  storageClass: ""
+  annotations: {}
+  accessModes:
+    - ReadWriteOnce
+  size: 128Gi
+  selector: {}
+
+config:
+  persistence:
+    enabled: true
+    existingClaim: ""
+    subPath: "config"
+    storageClass: "efs-sc"
+    annotations: {}
+    accessModes:
+      - ReadWriteMany
+    size: 1Gi
+    selector: {}
+
+env:
+  chiaRoot: "/root/.chia/mainnet"
+
+  testnet: true
+
+  TZ: "UTC"
+
+  ## https://github.com/Chia-Network/chia-blockchain/blob/main/chia/util/service_groups.py
+  service: "node"
+
+  log:
+    level: "INFO"
