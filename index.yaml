@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  chia-docker:
+  - apiVersion: v2
+    appVersion: 1.5.0
+    created: "2022-08-14T23:06:48.913192813Z"
+    description: Chia-Network chia-docker
+    digest: ce7d195214aa22621d7c1834408ae5dc1c1211de0ac9f5fc97c7107f3adddfcf
+    name: chia-docker
+    type: application
+    urls:
+    - https://github.com/hashgreen/helm-charts/releases/download/chia-docker-0.1.0/chia-docker-0.1.0.tgz
+    version: 0.1.0
+generated: "2022-08-14T23:06:48.913201514Z"
